@@ -30,20 +30,19 @@ const CharactersList = () => {
         <div>...Loading</div>
       ) : (
         <>
+          <Link to="/favorites-characters">Go to favorites</Link>
           <div>Hello rick & morty</div>
           <Select value={gender} onChange={(value) => setGender(value)} />
           {characters.map(({ name, image, species, id, gender }) => {
             return (
-              <Link to={`/character/${id}`}>
-                <CharacterCard
-                  key={id}
-                  id={id}
-                  name={name}
-                  image={image}
-                  specie={species}
-                  gender={gender}
-                />
-              </Link>
+              <CharacterCard
+                key={id}
+                id={id}
+                name={name}
+                image={image}
+                specie={species}
+                gender={gender}
+              />
             );
           })}
         </>
