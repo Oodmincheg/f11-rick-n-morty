@@ -1,55 +1,17 @@
 import { useEffect, useState } from 'react';
-import CharacterCard from './components/CharacterCard';
-import Select from './components/SelectGender';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CharacterDetails from './components/CharacterDetails';
+import CharacterList from './components/CharactersList';
 
-function App() {
-  const [characters, setCharacters] = useState([]);
-  const [gender, setGender] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const requestCharacters = async () => {
-      const params = gender ? `?gender=${gender}` : '';
-
-      setLoading(true);
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character/${params}`,
-      );
-      const data = await response.json();
-      setLoading(false);
-      setCharacters(data.results);
-    };
-
-    requestCharacters();
-  }, [gender]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+const App = () => {
   return (
-    <>
-      {loading ? (
-        <div>...Loading</div>
-      ) : (
-        <>
-          <div>Hello rick & morty</div>
-          <Select value={gender} onChange={(value) => setGender(value)} />
-          {characters.map(({ name, image, species, id, gender }) => {
-            return (
-              <CharacterCard
-                key={id}
-                name={name}
-                image={image}
-                specie={species}
-                gender={gender}
-              />
-            );
-          })}
-        </>
-      )}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<CharacterList />} />
+        <Route path="/character/:id" element={<CharacterDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
