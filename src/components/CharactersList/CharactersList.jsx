@@ -33,17 +33,8 @@ const CharactersList = () => {
           <Link to="/favorites-characters">Go to favorites</Link>
           <div>Hello rick & morty</div>
           <Select value={gender} onChange={(value) => setGender(value)} />
-          {characters.map(({ name, image, species, id, gender }) => {
-            return (
-              <CharacterCard
-                key={id}
-                id={id}
-                name={name}
-                image={image}
-                specie={species}
-                gender={gender}
-              />
-            );
+          {characters.map((character) => {
+            return <CharacterCard {...character} />;
           })}
         </>
       )}
